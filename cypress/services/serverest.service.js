@@ -1,3 +1,4 @@
+import Factory from "../fixtures/factory"
 
 const URL_USUARIOS = '/usuarios'
 const URL_LOGIN = '/login'
@@ -39,15 +40,11 @@ export default class Serverest {
     }
 
     static cadastrarProdutoComSucesso() {
+        let produto = Factory.gerarProduto()
         return cy.request({
             method: 'POST',
             url: URL_PRODUTOS,
-            body: {
-                "nome": "Logico MT Horizontal",
-                "preco": 350,
-                "descricao": "Carro",
-                "quantidade": 7
-            },
+            body: produto,
             failOnStatusCode: true,
             auth: {
                 bearer: Cypress.env("bearer")

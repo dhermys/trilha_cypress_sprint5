@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/dhermys/trilha_cypress_sprint5#readme",
   "devDependencies": {
+    "@faker-js/faker": "^7.5.0",
     "cypress": "^9.7.0"
   }
 }
