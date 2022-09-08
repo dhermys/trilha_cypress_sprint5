@@ -13,7 +13,7 @@ describe('Casos de teste sobre a rota /usuarios da API Serverest', () => {
         })
     })
 
-    it.only('Não deve postar um novo usuário admnistraodr existente', () => {
+    it('Não deve postar um novo usuário admnistraodr existente', () => {
         cy.postarUsuarioSemSucesso().then(res => {
             cy.contractValidation(res, 'post-usuarios', 400)
             expect(res.body.message).to.be.eq('Este email já está sendo usado')

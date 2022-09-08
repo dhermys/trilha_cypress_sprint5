@@ -7,7 +7,7 @@ export default class ValidaServerest {
     // Validar o login
 
     static validarBuscaDeUsuarios(resposta) {
-        expect(resposta.body.quantidade).to.be.greaterThan(5)
+        expect(resposta.body.quantidade).to.be.greaterThan(3)
     }
 
     static validarLoginComSucesso(resposta) {
