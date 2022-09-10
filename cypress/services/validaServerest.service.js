@@ -7,13 +7,20 @@ export default class ValidaServerest {
     // Validar o login
 
     static validarBuscaDeUsuarios(resposta) {
-        expect(resposta.body.quantidade).to.be.greaterThan(3)
+        expect(resposta.body.quantidade).to.be.greaterThan(5)
     }
 
     static validarLoginComSucesso(resposta) {
         expect(resposta).to.be.a('object')
         expect(resposta.body.message).to.be.a('string')
         expect(resposta.body).to.haveOwnProperty('authorization')
+    }
+
+    static validarLoginSemSucesso(resposta) {
+        expect(resposta).to.be.a('object')
+        expect(resposta.body.message).to.be.a('string')
+        expect(resposta.status).to.equal(400)
+        expect(resposta.body).to.haveOwnProperty('message')
     }
 
     static validarBuscaDeProdutos(resposta) {
@@ -29,5 +36,13 @@ export default class ValidaServerest {
         expect(resposta.body.message).to.be.a('string')
         expect(resposta.body.message).to.be.eq('Cadastro realizado com sucesso')
         expect(resposta.body).to.haveOwnProperty('_id')
+        Cypress.env('idProdutoCadastrado', resposta.body._id)
+    }
+
+    static validarAlteracaoDeProdutoComSucesso(resposta) {
+        expect(resposta).to.be.a('object')
+        expect(resposta.body.message).to.be.a('string')
+        expect(resposta.body.message).to.be.eq('Registro alterado com sucesso')
+        Cypress.env('idProdutoCadastrado', resposta.body._id)
     }
 }

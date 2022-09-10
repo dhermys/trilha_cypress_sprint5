@@ -1,3 +1,4 @@
+
 import Factory from "../fixtures/factory"
 
 const URL_USUARIOS = '/usuarios'
@@ -25,6 +26,16 @@ export default class Serverest {
         })
     }
 
+    static logarUsuarioFalso() {
+        let usuario = Factory.gerarUsuarioInvalido()
+        return cy.request({
+            method: 'POST',
+            url: URL_LOGIN,
+            body: usuario,
+            failOnStatusCode: false
+        })
+    }
+
     static logar(usuario) {
         return cy.rest('POST', URL_LOGIN, usuario)
     }
@@ -46,6 +57,29 @@ export default class Serverest {
             url: URL_PRODUTOS,
             body: produto,
             failOnStatusCode: true,
+            auth: {
+                bearer: Cypress.env("bearer")
+            }
+        })
+    }
+
+    static alterarProdutoCadastrado() {
+        let produto = Factory.gerarProduto()
+        return cy.request({
+            method: 'PUT',
+            url: `${URL_PRODUTOS}/${Cypress.env('idProdutoCadastrado')}`,
+            body: produto,
+            failOnStatusCode: false,
+            auth: {
+                bearer: Cypress.env("bearer")
+            }
+        })
+    }
+
+    static deletarProdutoCadastrado() {
+        return cy.request({
+            method: 'DELETE',
+            url: `${URL_PRODUTOS}/${Cypress.env('idProdutoCadastrado')}`,
             auth: {
                 bearer: Cypress.env("bearer")
             }

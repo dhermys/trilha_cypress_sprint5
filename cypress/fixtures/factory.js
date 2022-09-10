@@ -11,7 +11,15 @@ export default class Factory {
         }
     }
 
-    static gerarInteiroAleatorio(){
-        return faker.datatype.number(5)
+    static gerarInteiroAleatorio(qtd = 0) {
+        return faker.datatype.number(qtd)
     }
+
+    static gerarUsuarioInvalido() {
+        return {
+            "email": faker.internet.email(),
+            "password": faker.internet.password()
+        }
+    }
+
 }

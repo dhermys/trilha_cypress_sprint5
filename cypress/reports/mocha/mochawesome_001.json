@@ -1,15 +1,15 @@
 {
   "stats": {
     "suites": 1,
-    "tests": 1,
+    "tests": 2,
     "passes": 1,
     "pending": 0,
-    "failures": 0,
-    "start": "2022-09-08T14:07:09.554Z",
-    "end": "2022-09-08T14:07:10.681Z",
-    "duration": 1127,
-    "testsRegistered": 1,
-    "passPercent": 100,
+    "failures": 1,
+    "start": "2022-09-10T00:54:58.577Z",
+    "end": "2022-09-10T00:55:00.729Z",
+    "duration": 2152,
+    "testsRegistered": 2,
+    "passPercent": 50,
     "pendingPercent": 0,
     "other": 0,
     "hasOther": false,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "9fc02fb5-b766-481d-9287-9f46aa6eeb70",
+      "uuid": "7b942a24-f4e6-4b65-a8ec-4eeab8319ff4",
       "title": "",
       "fullFile": "cypress/integration/2.login.spec.js",
       "file": "cypress/integration/2.login.spec.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "f4a4caf0-9463-45b1-854c-0bc42e61e90a",
+          "uuid": "bcd99566-5d3d-43d6-8088-07beb78b51ba",
           "title": "Casos de teste sobre a rota /login da API Serverest",
           "fullFile": "",
           "file": "",
@@ -38,29 +38,53 @@
               "title": "Deve realizar login com sucesso",
               "fullTitle": "Casos de teste sobre a rota /login da API Serverest Deve realizar login com sucesso",
               "timedOut": null,
-              "duration": 1059,
+              "duration": 1199,
               "state": "passed",
               "speed": "fast",
               "pass": true,
               "fail": false,
               "pending": false,
               "context": null,
-              "code": "_serverest.default.buscarUsuarioParaLogin();\ncy.get('@usuarioLogin').then(usuario => {\n  _serverest.default.logar(usuario).then(res => {\n    _validaServerest.default.validarLoginComSucesso(res);\n    _serverest.default.salvarBearer(res);\n  });\n});",
+              "code": "_serverest.default.buscarUsuarioParaLogin();\ncy.get('@usuarioLogin').then(usuario => {\n  console.log(cy.get('@usuarioLogin'));\n  _serverest.default.logar(usuario).then(res => {\n    _validaServerest.default.validarLoginComSucesso(res);\n    _serverest.default.salvarBearer(res);\n  });\n});",
               "err": {},
-              "uuid": "a2975563-8223-4f28-be79-0daa0c8dbc9d",
-              "parentUUID": "f4a4caf0-9463-45b1-854c-0bc42e61e90a",
+              "uuid": "589fcc8a-8818-4339-9d8f-0918d6a877a4",
+              "parentUUID": "bcd99566-5d3d-43d6-8088-07beb78b51ba",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Deve realizar login sem sucesso",
+              "fullTitle": "Casos de teste sobre a rota /login da API Serverest Deve realizar login sem sucesso",
+              "timedOut": null,
+              "duration": 856,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "_serverest.default.logarUsuarioFalso().then(res => {\n  cy.contractValidation(res, '1.login', 400);\n  _validaServerest.default.validarLoginSemSucesso(res);\n});",
+              "err": {
+                "message": "AssertionError: expected 401 to equal 400",
+                "estack": "AssertionError: expected 401 to equal 400\n    at Function.validarLoginSemSucesso (https://serverest.dev/__cypress/tests?p=cypress\\integration\\2.login.spec.js:340:32)\n    at Context.eval (https://serverest.dev/__cypress/tests?p=cypress\\integration\\2.login.spec.js:189:32)",
+                "diff": "- 401\n+ 400\n"
+              },
+              "uuid": "ab4b98c7-8563-4e91-b757-e226ad1952bc",
+              "parentUUID": "bcd99566-5d3d-43d6-8088-07beb78b51ba",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
           "passes": [
-            "a2975563-8223-4f28-be79-0daa0c8dbc9d"
+            "589fcc8a-8818-4339-9d8f-0918d6a877a4"
           ],
-          "failures": [],
+          "failures": [
+            "ab4b98c7-8563-4e91-b757-e226ad1952bc"
+          ],
           "pending": [],
           "skipped": [],
-          "duration": 1059,
+          "duration": 2055,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000

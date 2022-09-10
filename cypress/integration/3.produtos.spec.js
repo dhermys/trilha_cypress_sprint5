@@ -27,5 +27,18 @@ describe('Casos de teste sobre a rota /produtos da API Serverest', () => {
                 ValidaServerest.validarCadastroDeProdutoComSucesso(res)
             })
         })
+
+        it('Deve alterar um produto com sucesso', () => {
+            Serverest.alterarProdutoCadastrado().then(res => {
+                cy.contractValidation(res, '11.put-produtos-by-id', 200)
+                ValidaServerest.validarAlteracaoDeProdutoComSucesso(res)
+            })
+        })
+
+        it('Deve deletar um produto com sucesso', () => {
+            Serverest.deletarProdutoCadastrado().then(res => {
+                cy.log(res)
+            })
+        })
     })
 })
