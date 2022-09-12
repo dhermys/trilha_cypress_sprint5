@@ -8,7 +8,6 @@ describe('Casos de teste sobre a rota /login da API Serverest', () => {
     it('Deve realizar login com sucesso', () => {
         Serverest.buscarUsuarioParaLogin()
         cy.get('@usuarioLogin').then(usuario => {
-            console.log(cy.get('@usuarioLogin'))
             Serverest.logar(usuario).then(res => {
                 ValidaServerest.validarLoginComSucesso(res)
                 Serverest.salvarBearer(res)

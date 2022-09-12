@@ -8,10 +8,7 @@ const URL_CARRINHOS = '/carrinhos'
 
 export default class Serverest {
 
-    //Ações que podemos realizar na API
-    // Buscar usuários
-    // Cadastrar novos usuários
-    // Realizar login
+    // Usuários //
 
     static buscarUsuarios() {
         return cy.rest('GET', URL_USUARIOS)
@@ -21,7 +18,7 @@ export default class Serverest {
         cy.request(URL_USUARIOS).then(res => {
             cy.wrap({
                 email: res.body.usuarios[0].email,
-                password: res.body.usuarios[0].password
+                password: res.body.usuarios[0].password,
             }).as('usuarioLogin')
         })
     }
@@ -38,6 +35,15 @@ export default class Serverest {
 
     static logar(usuario) {
         return cy.rest('POST', URL_LOGIN, usuario)
+    }
+
+    static postarUsuarioValido() {
+        let usuario = Factory.gerarUsuarioValido()
+        return cy.request({
+            method: 'POST',
+            url: URL_USUARIOS,
+            body: usuario
+        })
     }
 
     static salvarBearer(resposta) {
@@ -80,6 +86,42 @@ export default class Serverest {
         return cy.request({
             method: 'DELETE',
             url: `${URL_PRODUTOS}/${Cypress.env('idProdutoCadastrado')}`,
+            auth: {
+                bearer: Cypress.env("bearer")
+            }
+        })
+    }
+
+    // Carrinhos //
+
+    static buscarProdutoParaCarrinho() {
+        cy.request(URL_PRODUTOS).then(res => {
+            cy.wrap({
+                "produtos": [
+                    {
+                        idProduto: res.body.produtos[0]._id,
+                        quantidade: 1
+                    }
+                ]
+            }).as('produtoCarrinho')
+        })
+    }
+
+    static adicionarProdutoAoCarrinho(produto) {
+        return cy.request({
+            method: 'POST',
+            url: URL_CARRINHOS,
+            body: produto,
+            auth: {
+                bearer: Cypress.env("bearer")
+            }
+        })
+    }
+
+    static concluirCompra() {
+        return cy.request({
+            method: 'DELETE',
+            url: `${URL_CARRINHOS}/concluir-compra`,
             auth: {
                 bearer: Cypress.env("bearer")
             }

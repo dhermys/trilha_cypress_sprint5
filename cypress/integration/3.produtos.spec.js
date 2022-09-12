@@ -7,6 +7,7 @@ describe('Casos de teste sobre a rota /produtos da API Serverest', () => {
 
     it('Deve buscar todos os produtos cadastrados', () => {
         Serverest.buscarProdutos().then(res => {
+            cy.contractValidation(res, '7.get-produtos', 200)
             ValidaServerest.validarBuscaDeProdutos(res)
         })
     })
@@ -16,6 +17,7 @@ describe('Casos de teste sobre a rota /produtos da API Serverest', () => {
             Serverest.buscarUsuarioParaLogin()
             cy.get('@usuarioLogin').then(usuario => {
                 Serverest.logar(usuario).then(res => {
+                    cy.contractValidation(res, '1.Login', 200)
                     ValidaServerest.validarLoginComSucesso(res)
                     Serverest.salvarBearer(res)
                 })
@@ -37,7 +39,8 @@ describe('Casos de teste sobre a rota /produtos da API Serverest', () => {
 
         it('Deve deletar um produto com sucesso', () => {
             Serverest.deletarProdutoCadastrado().then(res => {
-                cy.log(res)
+                cy.contractValidation(res, '10.delete-produtos-by-id', 200)
+                ValidaServerest.validarExclusaoDeProdutoComSucesso(res)
             })
         })
     })

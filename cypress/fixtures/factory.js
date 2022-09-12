@@ -22,4 +22,13 @@ export default class Factory {
         }
     }
 
+    static gerarUsuarioValido() {
+        return {
+            "nome":  faker.name.fullName (),
+            "email": faker.internet.email(),
+            "password": faker.internet.password(),
+            "administrador": "false"
+        }
+    }
+
 }

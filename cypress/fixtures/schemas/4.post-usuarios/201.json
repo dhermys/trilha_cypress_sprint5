@@ -1,17 +1,8 @@
 {
-    "$schema": "https://json-schema.org/draft/2019-09/schema",
     "type": "object",
     "required": [
         "message",
         "_id"
     ],
-    "additionalProperties": true,
-    "properties": {
-        "message": {
-            "type": "string"
-        },
-        "_id": {
-            "type": "string"
-        }
-    }
+    "additionalProperties": true
 }

@@ -7,23 +7,35 @@ export default class ValidaServerest {
     // Validar o login
 
     static validarBuscaDeUsuarios(resposta) {
+        expect(resposta.status).to.equal(200);
         expect(resposta.body.quantidade).to.be.greaterThan(5)
     }
 
+    static validarCadastroDeUsuarioComSucesso(resposta) {
+        expect(resposta.status).to.equal(201)
+        expect(resposta).to.be.a('object')
+        expect(resposta.body.message).to.be.a('string')
+        expect(resposta.body.message).to.be.eq('Cadastro realizado com sucesso')
+        expect(resposta.body).to.haveOwnProperty('_id')
+        Cypress.env('idUsuarioCadastrado', resposta.body._id)
+    }
+
     static validarLoginComSucesso(resposta) {
+        expect(resposta.status).to.equal(200);
         expect(resposta).to.be.a('object')
         expect(resposta.body.message).to.be.a('string')
         expect(resposta.body).to.haveOwnProperty('authorization')
     }
 
     static validarLoginSemSucesso(resposta) {
+        expect(resposta.status).to.equal(400)
         expect(resposta).to.be.a('object')
         expect(resposta.body.message).to.be.a('string')
-        expect(resposta.status).to.equal(400)
         expect(resposta.body).to.haveOwnProperty('message')
     }
 
     static validarBuscaDeProdutos(resposta) {
+        expect(resposta.status).to.equal(200)
         expect(resposta).to.be.a('object')
         expect(resposta.body.quantidade).to.be.a('number')
         expect(resposta.body.produtos[0]).to.haveOwnProperty('nome')
@@ -32,6 +44,7 @@ export default class ValidaServerest {
     }
 
     static validarCadastroDeProdutoComSucesso(resposta) {
+        expect(resposta.status).to.equal(201)
         expect(resposta).to.be.a('object')
         expect(resposta.body.message).to.be.a('string')
         expect(resposta.body.message).to.be.eq('Cadastro realizado com sucesso')
@@ -40,9 +53,32 @@ export default class ValidaServerest {
     }
 
     static validarAlteracaoDeProdutoComSucesso(resposta) {
+        expect(resposta.status).to.equal(200)
         expect(resposta).to.be.a('object')
         expect(resposta.body.message).to.be.a('string')
         expect(resposta.body.message).to.be.eq('Registro alterado com sucesso')
-        Cypress.env('idProdutoCadastrado', resposta.body._id)
+    }
+
+    static validarExclusaoDeProdutoComSucesso(resposta) {
+        expect(resposta.status).to.equal(200)
+        expect(resposta).to.be.a('object')
+        expect(resposta.body.message).to.be.a('string')
+        expect(resposta.body.message).to.not.have.any.keys('Registro excluído com sucesso', 'Nenhum registro excluído')
+    }
+
+    static validarCadastroDeCarrinhoComSucesso(resposta) {
+        expect(resposta.status).to.equal(201)
+        expect(resposta).to.be.a('object')
+        expect(resposta.body.message).to.be.a('string')
+        expect(resposta.body.message).to.be.eq('Cadastro realizado com sucesso')
+        expect(resposta.body).to.haveOwnProperty('_id')
+        Cypress.env('idCarrinhoCadastrado', resposta.body._id)
+    }
+
+    static validarExclusaoDeCarrinhoComSucesso(resposta) {
+        expect(resposta.status).to.equal(200)
+        expect(resposta).to.be.a('object')
+        expect(resposta.body.message).to.be.a('string')
+        expect(resposta.body.message).to.not.have.any.keys('Registro excluído com sucesso', 'Não foi encontrado carrinho para esse usuário')
     }
 }
