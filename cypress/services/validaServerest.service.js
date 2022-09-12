@@ -75,6 +75,15 @@ export default class ValidaServerest {
         Cypress.env('idCarrinhoCadastrado', resposta.body._id)
     }
 
+    static validarBuscaDeCarrinho(resposta) {
+        expect(resposta.status).to.equal(200)
+        expect(resposta).to.be.a('object')
+        expect(resposta.body.quantidade).to.be.a('number')
+        expect(resposta.body.carrinhos[0]).to.haveOwnProperty('produtos')
+        expect(resposta.body.carrinhos[0]).to.haveOwnProperty('precoTotal')
+        expect(resposta.body.carrinhos[0]).to.haveOwnProperty('quantidadeTotal')
+    }
+
     static validarExclusaoDeCarrinhoComSucesso(resposta) {
         expect(resposta.status).to.equal(200)
         expect(resposta).to.be.a('object')
