@@ -17,8 +17,8 @@ export default class Serverest {
     static buscarUsuarioParaLogin() {
         cy.request(URL_USUARIOS).then(res => {
             cy.wrap({
-                email: res.body.usuarios[1].email,
-                password: res.body.usuarios[1].password,
+                email: res.body.usuarios[0].email,
+                password: res.body.usuarios[0].password,
             }).as('usuarioLogin')
         })
     }
@@ -99,7 +99,7 @@ export default class Serverest {
             cy.wrap({
                 "produtos": [
                     {
-                        idProduto: res.body.produtos[2]._id,
+                        idProduto: res.body.produtos[0]._id,
                         quantidade: 1
                     }
                 ]
